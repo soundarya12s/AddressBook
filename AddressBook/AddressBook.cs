@@ -23,17 +23,19 @@ namespace AddressBook
                 PhoneNumber = Console.ReadLine(),
                 Email = Console.ReadLine(),
             };
-            Console.WriteLine(contact.FirstName + "\n" + contact.LastName + "\n" + contact.Address + "\n" + contact.City + "\n" + contact.State + "\n" + contact.Zip + "\n" + contact.PhoneNumber + "\n" + contact.Email);
+            Console.WriteLine("Entered details: \n"+contact.FirstName + "\n" + contact.LastName + "\n" + contact.Address + "\n" + contact.City + "\n" + contact.State + "\n" + contact.Zip + "\n" + contact.PhoneNumber + "\n" + contact.Email);
             addressBook.Add(contact);
         }
         public void EditContact(string name)
         {
-            foreach(var contact in addressBook)
+            
+            foreach (var contact in addressBook)
             {
                 if(contact.FirstName.Equals(name) || contact.LastName.Equals(name))
                 {
                     Console.WriteLine("Enter the option to Edit\n1.First Name\n2.Last Name\n3.Address\n4.City\n5.State\n6.Zip\n7.Phone Number\n8.Email");
                     int option = Convert.ToInt32(Console.ReadLine());
+
                     switch (option)
                     {
                         case 1:
@@ -62,6 +64,13 @@ namespace AddressBook
                             break;
                     }
                 }
+            }
+        }
+        public void display()
+        {
+            foreach(var data in addressBook)
+            {
+                Console.WriteLine(data.FirstName+"\n"+data.LastName+"\n"+data.Address+"\n"+data.City+"\n"+data.State+"\n"+data.Zip+"\n"+data.PhoneNumber+"\n"+data.Email);
             }
         }
        

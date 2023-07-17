@@ -5,7 +5,7 @@ namespace AddressBook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter your option to proceed:\n1.Create Contact\n2.Edit Contact\n3.Exit ");
+            Console.WriteLine("Enter your option to proceed:\n1.Create Contact\n2.Edit Contact\n3.Display Contact\n4.Exit ");
             bool flag = true;
             AddressBook address = new AddressBook();
             while (flag)
@@ -22,12 +22,16 @@ namespace AddressBook
                         address.EditContact(name);
                         break;
                     case 3:
+                        address.display();
+                        break;
+                    case 4:
                         flag = false;
                         break;
 
+
                 }
             }
-            address.CreateContact();
+           
         }
     }
 }
