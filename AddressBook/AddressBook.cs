@@ -12,6 +12,11 @@ namespace AddressBook
         Contact contact = new Contact();
         List<Contact> addressBook = new List<Contact>();
         Dictionary<string, List<Contact>> dict = new Dictionary<string, List<Contact>>();
+
+        public void getData()
+        {
+            Console.WriteLine("\nEnter your option to proceed:\n1.Create Contact\n2.Add to Dictionary\n3.Edit Contact\n4.Delete Contact\n5.Display\n6.Exit ");
+        }
         public void CreateContact()
         {
             Console.WriteLine("Enter the details\n1.First Name\n2.Last Name\n3.Address\n4.city\n5.State\n6.Zip\n7.Phone Number\n8.Email");
@@ -26,17 +31,20 @@ namespace AddressBook
                 PhoneNumber = Console.ReadLine(),
                 Email = Console.ReadLine(),
             };
-            Console.WriteLine("Entered details: \n"+contact.FirstName + "\n" + contact.LastName + "\n" + contact.Address + "\n" + contact.City + "\n" + contact.State + "\n" + contact.Zip + "\n" + contact.PhoneNumber + "\n" + contact.Email);
+            Console.WriteLine("\nEntered details:\n \n"+contact.FirstName + "\n" + contact.LastName + "\n" + contact.Address + "\n" + contact.City + "\n" + contact.State + "\n" + contact.Zip + "\n" + contact.PhoneNumber + "\n" + contact.Email);
             addressBook.Add(contact);
+            getData();
         }
 
         public void AddAddressBookToDictionary()
         {
+            Console.WriteLine("Adding to dictionary!\n Enter the key you want to add:");
             string uniqueName= Console.ReadLine();
             dict.Add(uniqueName, addressBook);
-            addressBook = null;
+            addressBook = new List<Contact>();
+            getData();
         }
-        public void EditContact(string name)
+        public void EditContact(string name, string contactName)
         {
             
             foreach (var data in dict)
@@ -78,12 +86,13 @@ namespace AddressBook
                         }
                     }
                 }
-                else { Console.WriteLine("No contact has been found"); }
-                
+                else { Console.WriteLine("No contact has been found"); 
+                }
+                getData();
             }
         }
 
-        public void DeleteContact(string name)
+        public void DeleteContact(string name, string contactName)
         {
             Contact contact= new Contact();
             foreach(var data in dict)
@@ -104,6 +113,7 @@ namespace AddressBook
                     Console.WriteLine("No dictionary with key exits");
                 }
             }
+            getData();
 
            
         }
@@ -112,9 +122,10 @@ namespace AddressBook
             foreach(var data in dict)
             {
                 Console.WriteLine(data.Key);
+
                 foreach (var contact in data.Value)
                 {
-                    Console.WriteLine(contact.FirstName + "\n" + contact.LastName + "\n" + contact.Address + "\n" + contact.City + "\n" + contact.State + "\n" + contact.Zip + "\n" + contact.PhoneNumber + "\n" + contact.Email);
+                    Console.WriteLine(contact.FirstName +"\n"+ contact.LastName  + "\n" + contact.Address  + "\n" + contact.City + "\n" + contact.State +"\n" + contact.Zip  + "\n" + contact.PhoneNumber  + "\n" + contact.Email);
                 }
             }
         }

@@ -5,9 +5,12 @@ namespace AddressBook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter your option to proceed:\n1.Create Contact\n2.Add to Dictionary\n3.Edit Contact\n4.Display Contact\n5.Exit ");
+           
+           
             bool flag = true;
+            string key = null, input = null;
             AddressBook address = new AddressBook();
+            address.getData();
             while (flag)
             {
                 int option = Convert.ToInt32(Console.ReadLine());
@@ -20,14 +23,23 @@ namespace AddressBook
                         address.AddAddressBookToDictionary();
                         break;
                     case 3:
+                        Console.WriteLine("enter key:");
+                        key= Console.ReadLine();
                         Console.WriteLine("Enter name to edit:");
-                        string name = Console.ReadLine();
-                        address.EditContact(name);
+                        input = Console.ReadLine();
+                        address.EditContact(key,input);
                         break;
                     case 4:
-                        address.display();
+                        Console.WriteLine("Enter key:");
+                        key=Console.ReadLine();
+                        Console.WriteLine("Enter the name of contact details to be deleted ");
+                        input = Console.ReadLine();
+                        address.DeleteContact(key, input);
                         break;
                     case 5:
+                        address.display();
+                        break;
+                    case 6:
                         flag = false;
                         break;
 
