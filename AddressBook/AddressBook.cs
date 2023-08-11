@@ -40,6 +40,62 @@ namespace AddressBook
                 addressBook.Add(contact);
             }
         }
+        public void SearchBycity()
+        {
+            Console.WriteLine("Enter the city to search");
+            string city = Console.ReadLine();
+            List<Contact> contact = new List<Contact>();
+            foreach (var data in dict)
+            {
+                contact = data.Value.Where(x => x.City.Equals(city)).ToList();
+                foreach (var Contact in contact)
+                {
+                    Console.WriteLine(Contact.FirstName + " " + Contact.LastName);
+                }
+            }
+        }
+        public void SearchByState()
+        {
+            Console.WriteLine("Enter the State to search");
+            string state = Console.ReadLine();
+            List<Contact> contact1 = new List<Contact>();
+            int count = 0;
+            foreach (var data in dict)
+            {
+                contact1 = data.Value.Where(x => x.State.Equals(state)).ToList();
+                foreach (var Contact in contact1)
+                {
+                    Console.WriteLine(Contact.FirstName + " " + Contact.LastName);
+                }
+            }
+        }
+        
+            public void SearchByCityOrState()
+        {
+            bool flag = true;
+            while (flag)
+            {
+                Console.WriteLine("\n 1.By City\n 2.By state\n 3.Exit");
+                int choice = Convert.ToInt32(Console.ReadLine());
+
+                switch (choice)
+                {
+
+                    case 1:
+                        SearchBycity();
+                        break;
+                    case 2:
+                        SearchByState();
+                        break;
+                    case 3:
+                        flag= false;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        }
 
         public void AddAddressBookToDictionary()
         {

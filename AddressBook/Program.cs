@@ -3,6 +3,7 @@ namespace AddressBook
 {
     class Program
     {
+        static string FilePath = @"D:\gittestrep\AddressBook\AddressBook\AddressBookData.json";
         static void Main(string[] args)
         {
 
@@ -12,9 +13,7 @@ namespace AddressBook
             AddressBook address = new AddressBook();
             while (flag)
             {
-                Console.WriteLine("Enter the option to proceed\n 1.Create Contact\n 2.Add to Dictionary\n " +
-              "3.Edit Contact\n 4.Delete Contact\n " +
-              "5.Display Contact\n 6.Add to Json\n 7.Exit");
+                Console.WriteLine("Enter the option to proceed\n 1.Create Contact\n 2.Add to Dictionary\n " + "3.Edit Contact\n 4.Delete Contact\n " +"5.Display Contact\n 6.Add to Json\n 7.Search by state or city \n 8.Exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -42,7 +41,15 @@ namespace AddressBook
                         address.display();
                         break;
                     case 6:
+                        address.WriteToJsonFile(FilePath);
+                        break;
+                    case 7:
+                        address.SearchByCityOrState();
+                        break;
+                    case 8:
                         flag = false;
+                        break;
+                    default:
                         break;
 
                 }
