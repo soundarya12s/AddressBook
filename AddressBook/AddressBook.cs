@@ -1,26 +1,14 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AddressBook
 {
     public class AddressBook
     {
-        
+        int count = 0;
         Contact contact = new Contact();
         List<Contact> addressBook = new List<Contact>();
         Dictionary<string, List<Contact>> dict = new Dictionary<string, List<Contact>>();
 
-        public void getData()
-        {
-            Console.WriteLine("Enter the option to proceed\n 1.Create Contact\n 2.Add to Dictionary\n " +
-               "3.Edit Contact\n 4.Delete Contact\n " +
-               "5.Display Contact\n 6.Add to Json\n 7.Exit");
-        }
         public void CreateContact()
         {
             Console.WriteLine("Enter the details\n1.First Name\n2.Last Name\n3.Address\n4.city\n5.State\n6.Zip\n7.Phone Number\n8.Email");
@@ -35,18 +23,32 @@ namespace AddressBook
                 PhoneNumber = Console.ReadLine(),
                 Email = Console.ReadLine(),
             };
-            Console.WriteLine("\nEntered details:\n \n"+contact.FirstName + "\n" + contact.LastName + "\n" + contact.Address + "\n" + contact.City + "\n" + contact.State + "\n" + contact.Zip + "\n" + contact.PhoneNumber + "\n" + contact.Email);
-            addressBook.Add(contact);
-            getData();
+            foreach (var data in dict)
+            {
+                foreach (var item in data.Value)
+                {
+                    if (item.FirstName.Equals(contact.FirstName))
+                    {
+                        Console.WriteLine("Name already exists\n Add Different contact");
+                        CreateContact();
+                        count++;
+                    }
+                }
+            }
+            if (count == 0)
+            {
+                addressBook.Add(contact);
+            }
         }
 
         public void AddAddressBookToDictionary()
         {
-            Console.WriteLine("Adding to dictionary!\n Enter the key you want to add:");
-            string uniqueName = Console.ReadLine();
-            dict.Add(uniqueName, addressBook);
+            Console.WriteLine("Enter the unique Name");
+            string uniquename = Console.ReadLine();
+            bool UniqueContact = false;
+            dict.Add(uniquename, addressBook);
+
             addressBook = new List<Contact>();
-            getData();
         }
         public void WriteToJsonFile(string filePath)
         {
@@ -99,7 +101,6 @@ namespace AddressBook
                 }
                 else { Console.WriteLine("No contact has been found"); 
                 }
-                getData();
             }
         }
 
@@ -124,7 +125,6 @@ namespace AddressBook
                     Console.WriteLine("No dictionary with key exits");
                 }
             }
-            getData();
 
            
         }
