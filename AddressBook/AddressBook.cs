@@ -42,6 +42,7 @@ namespace AddressBook
         }
         public void SearchBycity()
         {
+            int cityCount = 0;
             Console.WriteLine("Enter the city to search");
             string city = Console.ReadLine();
             List<Contact> contact = new List<Contact>();
@@ -51,11 +52,14 @@ namespace AddressBook
                 foreach (var Contact in contact)
                 {
                     Console.WriteLine(Contact.FirstName + " " + Contact.LastName);
+                    cityCount++;
                 }
             }
+            Console.WriteLine("People in city: "+cityCount);
         }
         public void SearchByState()
         {
+            int StateCount = 0;
             Console.WriteLine("Enter the State to search");
             string state = Console.ReadLine();
             List<Contact> contact1 = new List<Contact>();
@@ -66,8 +70,10 @@ namespace AddressBook
                 foreach (var Contact in contact1)
                 {
                     Console.WriteLine(Contact.FirstName + " " + Contact.LastName);
+                    StateCount++;
                 }
             }
+            Console.WriteLine("People in state: "+StateCount);
         }
         
             public void SearchByCityOrState()
@@ -75,7 +81,7 @@ namespace AddressBook
             bool flag = true;
             while (flag)
             {
-                Console.WriteLine("\n 1.By City\n 2.By state\n 3.Exit");
+                Console.WriteLine("\n 1.By City\n 2.By state\n 3.City count\n 4.Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
                 switch (choice)
