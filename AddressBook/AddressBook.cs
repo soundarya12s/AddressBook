@@ -59,7 +59,7 @@ namespace AddressBook
             Console.WriteLine("Enter the State to search");
             string state = Console.ReadLine();
             List<Contact> contact1 = new List<Contact>();
-            int count = 0;
+          
             foreach (var data in dict)
             {
                 contact1 = data.Value.Where(x => x.State.Equals(state)).ToList();
