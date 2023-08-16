@@ -12,6 +12,7 @@ namespace AddressBook
         Dictionary<string, List<Contact>> dict = new Dictionary<string, List<Contact>>();
         Dictionary<string, List<Contact>> City= new Dictionary<string, List<Contact>>();
         Dictionary<string, List<Contact>> State_ = new Dictionary<string, List<Contact>>();
+        Dictionary<string, List<Contact>> sort = new Dictionary<string, List<Contact>>();
 
         public void CreateContact()
         {
@@ -226,6 +227,34 @@ namespace AddressBook
                     }
                 }
                 else { Console.WriteLine("No contact has been found"); 
+                }
+            }
+        }
+
+        public void Stream_Writer(string filepath)
+        {
+            using (StreamWriter stream = File.AppendText(filepath))
+            {
+                foreach (var data in dict)
+                {
+                    stream.WriteLine(data.Key);
+                    foreach (var contact in data.Value)
+                    {
+                        stream.WriteLine(contact.FirstName + "," + contact.LastName + "," + contact.Address + "," + contact.City + "," + contact.State + "," + contact.Zip + "," + contact.PhoneNumber
+                            + "," + contact.Email);
+                    }
+                }
+                stream.Close();
+            }
+        }
+        public void Stream_Reader(string filepath)
+        {
+            using (StreamReader stream = File.OpenText(filepath))
+            {
+                string s = "";
+                while ((s = stream.ReadLine()) != null)
+                {
+                    Console.WriteLine(s);
                 }
             }
         }
