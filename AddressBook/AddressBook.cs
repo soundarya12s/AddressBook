@@ -12,6 +12,8 @@ namespace AddressBook
         Dictionary<string, List<Contact>> dict = new Dictionary<string, List<Contact>>();
         Dictionary<string, List<Contact>> City= new Dictionary<string, List<Contact>>();
         Dictionary<string, List<Contact>> State_ = new Dictionary<string, List<Contact>>();
+        
+        Dictionary<string, List<Contact>> sort = new Dictionary<string, List<Contact>>();
 
         public void CreateContact()
         {
