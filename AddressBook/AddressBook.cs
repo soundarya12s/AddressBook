@@ -12,6 +12,8 @@ namespace AddressBook
         Dictionary<string, List<Contact>> City= new Dictionary<string, List<Contact>>();
         Dictionary<string, List<Contact>> State_ = new Dictionary<string, List<Contact>>();
 
+         Dictionary<string, List<Contact>> sort = new Dictionary<string, List<Contact>>();
+
         public void CreateContact()
         {
             Console.WriteLine("Enter the details\n1.First Name\n2.Last Name\n3.Address\n4.city\n5.State\n6.Zip\n7.Phone Number\n8.Email");
