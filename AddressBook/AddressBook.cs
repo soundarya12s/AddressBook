@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Linq;
 
 namespace AddressBook
 {
@@ -8,6 +9,8 @@ namespace AddressBook
         Contact contact = new Contact();
         List<Contact> addressBook = new List<Contact>();
         Dictionary<string, List<Contact>> dict = new Dictionary<string, List<Contact>>();
+        Dictionary<string, List<Contact>> City= new Dictionary<string, List<Contact>>();
+        Dictionary<string, List<Contact>> State_ = new Dictionary<string, List<Contact>>();
 
         public void CreateContact()
         {
@@ -43,6 +46,7 @@ namespace AddressBook
         public void SearchBycity()
         {
             int cityCount = 0;
+            bool IsCity = false;
             Console.WriteLine("Enter the city to search");
             string city = Console.ReadLine();
             List<Contact> contact = new List<Contact>();
@@ -53,27 +57,61 @@ namespace AddressBook
                 {
                     Console.WriteLine(Contact.FirstName + " " + Contact.LastName);
                     cityCount++;
+                    IsCity = true;
                 }
+            }
+            if (IsCity)
+            {
+                Console.WriteLine("No contacts");
+            }
+            else
+            {
+                City.Add(city, contact);
             }
             Console.WriteLine("People in city: "+cityCount);
         }
         public void SearchByState()
         {
             int StateCount = 0;
+            bool IsState = false;
             Console.WriteLine("Enter the State to search");
             string state = Console.ReadLine();
             List<Contact> contact1 = new List<Contact>();
             int count = 0;
-            foreach (var data in dict)
+            foreach (var data in dict.Values)
             {
-                contact1 = data.Value.Where(x => x.State.Equals(state)).ToList();
-                foreach (var Contact in contact1)
+                foreach(var item in data)
                 {
-                    Console.WriteLine(Contact.FirstName + " " + Contact.LastName);
-                    StateCount++;
+                    if (!State_.Keys.Equals(item.State))
+                    {
+                        List<Contact> list = new List<Contact>();
+                        list.Add(item);
+                        State_.Add(item.State, list);
+                    }
+                    else
+                    {
+                        foreach(var states in State_)
+                        {
+                            if(states.Key.Equals(item.State))
+                            {
+                                states.Value.Add(item);
+                            }
+                        }
+                    }
+                }
+               
+            }  
+        }
+        public void GetCountState(string name)
+        {
+            Console.WriteLine(dict.GroupBy(x=>x.Value).ToDictionary(x=>x.Key,x=>x.ToList().Count()));
+            foreach (var data in State_)
+            {
+                if (data.Key.Equals(name))
+                {
+                    Console.WriteLine(data.Value.Count());
                 }
             }
-            Console.WriteLine("People in state: "+StateCount);
         }
         
             public void SearchByCityOrState()
@@ -102,7 +140,15 @@ namespace AddressBook
 
             }
         }
-
+        public void Sort()
+        {
+            Console.WriteLine("Sorting: ");
+            foreach (var data in dict.Values)
+            {
+                data.Sort((a, b) => a.FirstName.CompareTo(b.FirstName));
+                display();
+            }
+        }
         public void AddAddressBookToDictionary()
         {
             Console.WriteLine("Enter the unique Name");
@@ -195,9 +241,10 @@ namespace AddressBook
             foreach(var data in dict)
             {
                 Console.WriteLine(data.Key);
-
+               
                 foreach (var contact in data.Value)
                 {
+
                     Console.WriteLine(contact.FirstName +"\n"+ contact.LastName  + "\n" + contact.Address  + "\n" + contact.City + "\n" + contact.State +"\n" + contact.Zip  + "\n" + contact.PhoneNumber  + "\n" + contact.Email);
                 }
             }
