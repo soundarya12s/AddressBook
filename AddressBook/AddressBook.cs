@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AddressBook
@@ -140,13 +141,30 @@ namespace AddressBook
 
             }
         }
-        public void Sort()
+    
+        public void Sorting()
         {
-            Console.WriteLine("Sorting: ");
+            Console.WriteLine("Write the number to Sort \n1.Name\n2.City\n3.State\n4.Zip");
+            int option = Convert.ToInt32(Console.ReadLine());
             foreach (var data in dict.Values)
             {
-                data.Sort((a, b) => a.FirstName.CompareTo(b.FirstName));
-                display();
+                switch (option)
+                {
+                    case 1:
+                        data.Sort((a, b) => string.Compare(a.FirstName,b.FirstName));
+                        break;
+                    case 2:
+                        data.Sort((a, b) => string.Compare(a.City,b.City));
+                        break;
+                    case 3:
+                        data.Sort((a, b) => string.Compare(a.State,b.State));
+                        break;
+                    case 4:
+                        data.Sort((a, b) => string.Compare(a.Zip,b.Zip));
+                        break;
+                     default : break;
+                }
+              
             }
         }
         public void AddAddressBookToDictionary()
