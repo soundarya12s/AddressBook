@@ -186,7 +186,12 @@ namespace AddressBook
             File.WriteAllText(filePath, json);
 
         }
-
+        public void ReadFromJsonFile(string filepath)
+        {
+            var json = File.ReadAllText(filepath);
+            dict = JsonConvert.DeserializeObject<Dictionary<string, List<Contact>>>(json);
+            display();
+        }
         public void EditContact(string name, string contactName)
         {
             
@@ -290,6 +295,8 @@ namespace AddressBook
                 }
             }
         }
+       
+       
         public void DeleteContact(string name, string contactName)
         {
             Contact contact= new Contact();
