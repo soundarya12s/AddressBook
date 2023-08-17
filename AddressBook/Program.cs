@@ -5,6 +5,7 @@ namespace AddressBook
     {
         static string FilePath = @"D:\gittestrep\AddressBook\AddressBook\AddressBookData.json";
         static string TextFile = @"D:\gittestrep\AddressBook\AddressBook\Contact.txt";
+        static string CSVFile = @"D:\gittestrep\AddressBook\AddressBook\Contact.csv";
         static void Main(string[] args)
         {
 
@@ -14,7 +15,7 @@ namespace AddressBook
             AddressBook address = new AddressBook();
             while (flag)
             {
-                Console.WriteLine("Enter the option to proceed\n 1.Create Contact\n 2.Add to Dictionary\n " + "3.Edit Contact\n 4.Delete Contact\n 5. Sort" +"\n 6.Display Contact\n 7.Add to Json\n 8.Search by state or city \n 9.Syream Reader\n 10.Stream Writer\n 11.Exit");
+                Console.WriteLine("Enter the option to proceed\n 1.Create Contact\n 2.Add to Dictionary\n " + "3.Edit Contact\n 4.Delete Contact\n 5. Sort" + "\n 6.Display Contact\n 7.Add to Json\n 8.Search by state or city \n 9.Syream Reader\n 10.Stream Writer\n 11.Write as CSV File\n 12.Read as CSV File\n 13.Exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -61,6 +62,12 @@ namespace AddressBook
                         address.Stream_Writer(TextFile);
                         break;
                     case 11:
+                        address.WriteCSVfile(CSVFile);
+                        break;
+                    case 12:
+                        address.ReadCSVFile(CSVFile);
+                        break;
+                    case 13:
                         flag = false;
                         break;
                     default:

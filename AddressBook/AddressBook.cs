@@ -1,5 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using CsvHelper;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Formats.Asn1;
+using System.Globalization;
 using System.Linq;
 
 namespace AddressBook
@@ -258,7 +261,35 @@ namespace AddressBook
                 }
             }
         }
-
+        public void ReadCSVFile(string filepath)
+        {
+            using (var reader = new StreamReader(filepath))
+            {
+                using (var CSV = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    var records = CSV.GetRecords<Contact>().ToList();
+                    foreach (var data in records)
+                    {
+                        Console.WriteLine(data.FirstName + "," + data.LastName + "," + data.Address + "," +
+                            data.City + "," + data.State + "," + data.Zip + "," +
+                            data.PhoneNumber + "," + data.Email);
+                    }
+                }
+            }
+        }
+        public void WriteCSVfile(string filepath)
+        {
+            using (var writer = new StreamWriter(filepath))
+            {
+                using (var csvExport = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    foreach (var data in dict)
+                    {
+                        csvExport.WriteRecords(data.Value);
+                    }
+                }
+            }
+        }
         public void DeleteContact(string name, string contactName)
         {
             Contact contact= new Contact();
